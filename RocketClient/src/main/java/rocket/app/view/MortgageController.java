@@ -1,11 +1,16 @@
 package rocket.app.view;
 
 import eNums.eAction;
+import exceptions.LoanRequestException;
+import exceptions.RateException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import rocket.app.MainApp;
 import rocketCode.Action;
@@ -13,8 +18,14 @@ import rocketData.LoanRequest;
 
 public class MortgageController {
 
-	@FXML TextField txtCreditScore;
-	@FXML TextField txtMortgageAmt;
+	@FXML private TextField txtCreditScore;
+	@FXML private Label lblMortgagePayment;
+	@FXML private TextField txtIncome;
+	@FXML private TextField txtHouseCost;
+	@FXML private ComboBox cmbTerm;
+	@FXML private TextField txtExpenses;
+	@FXML private TextField txtDownPayment;
+	@FXML private Button btnCalculate;
 	
 	private TextField txtNew;
 	
@@ -39,14 +50,20 @@ public class MortgageController {
 		    }
 		});
 	}
+
 	
 	public void HandleLoanRequestDetails(LoanRequest lRequest)
 	{
-		//	TODO - RocketClient.HandleLoanRequestDetails
-		//			lRequest is an instance of LoanRequest.
-		//			after it's returned back from the server, the payment (dPayment)
-		//			should be calculated.
-		//			Display dPayment on the form, rounded to two decimal places
+		lblMortgagePayment.setText(String.format("%.2f", Math.abs(lRequest.getdPayment())));
 		
+}
+	public void HandleExceptions (Exception e)
+	{
+		if (e instanceof LoanRequestException){
+			
+		}
+		else if (e instanceof RateException){
+			
+		}
 	}
 }
